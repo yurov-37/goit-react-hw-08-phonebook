@@ -3,8 +3,7 @@ import {
   fetchContacts,
   addContact,
   deleteContact,
-  // filterContacts,
-} from './operations';
+} from './contacts-operations';
 
 const handlePending = state => {
   state.isLoading = true;
@@ -46,19 +45,6 @@ export const contactsSlice = createSlice({
       );
       state.contacts.splice(index, 1);
     },
-
-    // [filterContacts.pending](state) {
-    //   state.isLoading = true;
-    // },
-    // [filterContacts.fulfilled](state, action) {
-    //   state.isLoading = false;
-    //   state.error = null;
-    //   state.contacts = action.payload;
-    // },
-    // [filterContacts.rejected](state, action) {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
   },
 });
 

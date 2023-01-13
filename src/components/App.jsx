@@ -1,37 +1,61 @@
-import GlobalStyles from './GlobalStyles';
-import ContactForm from './ContactForm';
-import ContactList from './ContactList';
-import Filter from './Filter';
-import { Phonebook, MainTitle, ContactTitle } from './App.styled';
-import { useSelector } from 'react-redux';
-import { selectContacts } from 'redux/selectors';
 import { Route, Routes } from 'react-router-dom';
-import HomePage from 'Pages/HomePage/HomePage';
-// import LoginPage from 'Pages/LoginPage/LoginPage';
-import PrivateRoute from 'utils/router/privateRoute';
-// import RegisterPage from 'Pages/RegisterPage/RegisterPage';
-import AuthRootComponent from './Auth';
+import { Layout } from './Layout';
+import { useDispatch } from 'react-redux';
+import { useAuth } from 'hooks/useAuth';
+import { refreshUser } from 'redux/auth/auth-operations';
+import { useEffect, lazy } from 'react';
+import { RestrictedRoute } from './RestrictedRoute';
+import { PrivateRoute } from './PrivateRoute';
+import GlobalStyles from './GlobalStyles';
+// import HomePage from 'Pages/HomePage/HomePage';
+// import ContactsPage from 'Pages/ContactsPage/ContactsPage';
+// import AuthRootComponent from './Auth';
+const HomePage = lazy(() => import('../Pages/HomePage/HomePage'));
+const AuthRootComponent = lazy(() => import('../components/Auth/index'));
+const ContactsPage = lazy(() => import('../Pages/ContactsPage/ContactsPage'));
 
 export default function App() {
-  const { contacts } = useSelector(selectContacts);
+  const dispatch = useDispatch();
+  const { isRefreshing } = useAuth();
 
-  return (
-    <div>
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
+    <>
       <Routes>
-        <Route element={<PrivateRoute />}>
-          <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route
+            path="login"
+            element={
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<AuthRootComponent />}
+              />
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<AuthRootComponent />}
+              />
+            }
+          />
+          <Route
+            path="contacts"
+            element={
+              <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+            }
+          />
         </Route>
-        <Route path="login" element={<AuthRootComponent />} />
-        <Route path="register" element={<AuthRootComponent />} />
       </Routes>
-      <Phonebook>
-        <MainTitle>Phonebook</MainTitle>
-        <ContactForm />
-        <ContactTitle>Contacts</ContactTitle>
-        {contacts.length > 0 && <Filter />}
-        <ContactList />
-        <GlobalStyles />
-      </Phonebook>
-    </div>
+      <GlobalStyles />
+    </>
   );
 }

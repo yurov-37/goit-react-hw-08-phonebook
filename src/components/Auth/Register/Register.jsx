@@ -1,7 +1,9 @@
-import React from 'react';
 import { TextField, Button, Typography } from '@mui/material';
+import { register } from 'redux/auth/auth-operations';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
-export default function Register() {
+export default function RegisterPage() {
   return (
     <>
       <Typography variant="h2" fontFamily="Poppins" textAlign="center">
@@ -16,6 +18,8 @@ export default function Register() {
         Введите данные для регистрации
       </Typography>
       <TextField
+        type="text"
+        name="name"
         id="outlined-basic"
         label="Username"
         variant="outlined"
@@ -24,6 +28,8 @@ export default function Register() {
         margin={'normal'}
       />
       <TextField
+        type="email"
+        name="email"
         id="outlined-basic"
         label="Email"
         variant="outlined"
@@ -32,6 +38,7 @@ export default function Register() {
         margin={'normal'}
       />
       <TextField
+        name="password"
         type="password"
         id="outlined-basic"
         label="Password"
@@ -49,17 +56,18 @@ export default function Register() {
           width: '40%',
         }}
         variant="contained"
+        type="submit"
       >
         Регистрация
       </Button>
-      <Typography
+      {/* <Typography
         sx={{ fontFamily: 'Poppins' }}
         variant="body1"
         fontFamily="Poppins"
       >
         У вас есть аккаунт?
         <span className="incitingText">Авторизация</span>
-      </Typography>
+      </Typography> */}
     </>
   );
 }

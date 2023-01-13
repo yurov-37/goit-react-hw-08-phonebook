@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField, Button, Typography } from '@mui/material';
 
-export default function Login() {
+export default function LoginPage() {
   return (
     <>
       <Typography variant="h2" fontFamily="Poppins" textAlign="center">
@@ -17,6 +17,7 @@ export default function Login() {
       </Typography>
 
       <TextField
+        name="email"
         id="outlined-basic"
         label="Email"
         variant="outlined"
@@ -25,6 +26,7 @@ export default function Login() {
         margin={'normal'}
       />
       <TextField
+        name="password"
         type="password"
         id="outlined-basic"
         label="Password"
@@ -41,17 +43,14 @@ export default function Login() {
           width: '40%',
         }}
         variant="contained"
+        type="submit"
       >
         Войти
       </Button>
-      <Typography
-        sx={{ fontFamily: 'Poppins' }}
-        variant="body1"
-        fontFamily="Poppins"
-      >
+      {/* <Typography sx={{ fontFamily: 'Poppins' }} variant="body1">
         У вас нет аккаунта?
         <span className="incitingText">Регистрация</span>
-      </Typography>
+      </Typography> */}
     </>
   );
 }

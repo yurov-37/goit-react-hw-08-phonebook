@@ -1,10 +1,13 @@
 import Button from '../Button';
 import { List, ListItem, ListText } from './ContactList.styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchContacts, deleteContact } from 'redux/operations';
+import {
+  fetchContacts,
+  deleteContact,
+} from 'redux/contacts/contacts-operations';
 import { useEffect } from 'react';
 import { selectContacts, selectFilter } from 'redux/selectors';
-import { TotalContactText } from '../App.styled';
+import { TotalContactText } from '../../Pages/ContactsPage/ContactsPage.styled';
 import { RotatingLines } from 'react-loader-spinner';
 
 export default function ContactList() {
@@ -40,10 +43,10 @@ export default function ContactList() {
         <TotalContactText>Total contacts: {contacts.length}</TotalContactText>
       )}
       {contacts.length > 0 &&
-        filteredContacts.map(({ id, name, phone }) => (
+        filteredContacts.map(({ id, name, number }) => (
           <ListItem key={id}>
             <ListText>
-              {name}: {phone}
+              {name}: {number}
             </ListText>
             <Button type="button" onClick={() => dispatch(deleteContact(id))}>
               Delete
