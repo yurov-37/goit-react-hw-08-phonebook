@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { Suspense } from 'react';
-import Header from './Header/Header';
 import { Paper } from '@mui/material';
+import Header from './Header/Header';
 import HomeIamge from '../images/jeshoots-com-pUAM5hPaCRI-unsplash.jpg';
 
 export const Layout = () => {

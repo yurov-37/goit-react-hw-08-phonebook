@@ -14,7 +14,7 @@ export const Navigation = () => {
       </HomeLink>
       {isLoggedIn && (
         <ContactsLink to="/contacts">
-          <Typography>Contacts</Typography>
+          <Typography variant="h5">Contacts</Typography>
         </ContactsLink>
       )}
     </Box>

@@ -1,7 +1,4 @@
 import { TextField, Button, Typography } from '@mui/material';
-import { register } from 'redux/auth/auth-operations';
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
 
 export default function RegisterPage() {
   return (
