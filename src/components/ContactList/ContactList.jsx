@@ -1,5 +1,3 @@
-import Button from '../Button';
-import { List, ListItem, ListText } from './ContactList.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchContacts,
@@ -7,8 +5,15 @@ import {
 } from 'redux/contacts/contacts-operations';
 import { useEffect } from 'react';
 import { selectContacts, selectFilter } from 'redux/selectors';
-import { TotalContactText } from '../../Pages/ContactsPage/ContactsPage.styled';
-import { RotatingLines } from 'react-loader-spinner';
+import {
+  List,
+  ListItem,
+  Avatar,
+  Typography,
+  CircularProgress,
+  IconButton,
+} from '@mui/material';
+import { MdDelete } from 'react-icons/md';
 
 export default function ContactList() {
   const dispatch = useDispatch();
@@ -25,32 +30,43 @@ export default function ContactList() {
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
+  const getFirstLetter = name => {
+    return name.charAt(0).toUpperCase();
+  };
+
   const filteredContacts = getFilteredContacts();
 
   return (
-    <List>
-      {isLoading && (
-        <RotatingLines
-          strokeColor="grey"
-          strokeWidth="5"
-          animationDuration="0.75"
-          width="36"
-          visible={true}
-        />
-      )}
+    <List sx={{ padding: '20px' }}>
+      {isLoading && <CircularProgress />}
       {error && <p>{error}</p>}
       {contacts.length > 0 && (
-        <TotalContactText>Total contacts: {contacts.length}</TotalContactText>
+        <Typography>Total contacts: {contacts.length}</Typography>
       )}
       {contacts.length > 0 &&
         filteredContacts.map(({ id, name, number }) => (
-          <ListItem key={id}>
-            <ListText>
-              {name}: {number}
-            </ListText>
-            <Button type="button" onClick={() => dispatch(deleteContact(id))}>
-              Delete
-            </Button>
+          <ListItem
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              maxWidth: 640,
+              mb: 1,
+            }}
+            key={id}
+            divider
+          >
+            <Avatar sx={{ bgcolor: 'purple' }}>{getFirstLetter(name)}</Avatar>
+            <Typography>
+              {name}:{number}
+            </Typography>
+            <IconButton
+              aria-label="delete"
+              color="secondary"
+              onClick={() => dispatch(deleteContact(id))}
+            >
+              <MdDelete />
+            </IconButton>
           </ListItem>
         ))}
     </List>

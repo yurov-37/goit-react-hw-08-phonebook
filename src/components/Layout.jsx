@@ -14,7 +14,7 @@ export const Layout = () => {
         maxWidth: 1600,
         backgroundImage:
           location.pathname === '/contacts'
-            ? 'linear-gradient(#457fcaa4,#5691c8b2)'
+            ? 'linear-gradient(#C9D6FF,#E2E2E2)'
             : `url(${HomeIamge})`,
         minHeight: '100vh',
         backgroundSize: 'cover',

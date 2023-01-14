@@ -17,9 +17,6 @@ export default function Header() {
           alignItems: 'center',
         }}
       >
-        {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          ContactsApp
-        </Typography> */}
         <Navigation />
         {isLoggedIn ? <UserMenu /> : <AuthNav />}
       </Toolbar>

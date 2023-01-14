@@ -4,18 +4,16 @@ import ContactList from '../../components/ContactList/ContactList';
 import { useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
 import Filter from '../../components/Filter/Filter';
-import { Phonebook, MainTitle, ContactTitle } from './ContactsPage.styled';
+import { Paper } from '@mui/material';
 
 const ContactsPage = () => {
   const { contacts } = useSelector(selectContacts);
   return (
-    <Phonebook>
-      <MainTitle>Phonebook</MainTitle>
+    <>
       <ContactForm />
-      <ContactTitle>Contacts</ContactTitle>
       {contacts.length > 0 && <Filter />}
       <ContactList />
-    </Phonebook>
+    </>
   );
 };
 
