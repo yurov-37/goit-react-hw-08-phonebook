@@ -4,7 +4,6 @@ import ContactList from '../../components/ContactList/ContactList';
 import { useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
 import Filter from '../../components/Filter/Filter';
-import { Paper } from '@mui/material';
 
 const ContactsPage = () => {
   const { contacts } = useSelector(selectContacts);
