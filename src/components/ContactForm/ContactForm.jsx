@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import { Form } from './ContactForm.styled';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contacts/contacts-operations';
 import { TextField, Button } from '@mui/material';
 import { RiUserAddLine } from 'react-icons/ri';
+import { selectContacts } from 'redux/selectors';
+import { toast } from 'react-toastify';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
+  const { contacts } = useSelector(selectContacts);
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -33,7 +36,16 @@ export default function ContactForm() {
 
   const handleAddContact = e => {
     e.preventDefault();
+    if (contacts.find(contact => contact.name === name.trim())) {
+      toast.error(`There is already such contact as ${name}`, {
+        icon: '⛔',
+      });
+      return;
+    }
     dispatch(addContact({ name, number }));
+    toast.success(`${name} added to contacts`, {
+      icon: '☑️',
+    });
     resetForm();
   };
 

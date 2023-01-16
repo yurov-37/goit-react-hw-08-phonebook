@@ -6,7 +6,9 @@ import { refreshUser } from 'redux/auth/auth-operations';
 import { useEffect, lazy } from 'react';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRoute';
+import { ToastContainer } from 'react-toastify';
 import GlobalStyles from './GlobalStyles';
+import 'react-toastify/dist/ReactToastify.css';
 const HomePage = lazy(() => import('../Pages/HomePage/HomePage'));
 const AuthRootComponent = lazy(() => import('../components/Auth/index'));
 const ContactsPage = lazy(() => import('../Pages/ContactsPage/ContactsPage'));
@@ -52,6 +54,7 @@ export default function App() {
           />
         </Route>
       </Routes>
+      <ToastContainer autoClose={2000} />
       <GlobalStyles />
     </>
   );
